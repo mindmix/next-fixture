@@ -30,7 +30,7 @@ Should you wish to display the information on your desktop, like me, then (on OS
 Installation
 ------------
 	$ mkdir -p ~/bin
-	$ curl -skL https://github.com/howlingmad/fixture/raw/master/fixture >~/bin/fixture
+	$ curl -skL https://raw.github.com/howlingmad/next-fixture/master/fixture >~/bin/fixture
 	$ chmod +x ~/bin/fixture
 	
 Make sure `~/bin` is in your `$PATH` - or put the `fixture` script somewhere else on your `$PATH`.
