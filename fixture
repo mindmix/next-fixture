@@ -59,14 +59,14 @@ if arg == 'list':
 else:
 	if arg in teamslist:
 		# generate the next game for arg
-		bbc = urllib2.urlopen('http://www.bbc.co.uk/sport/football/teams/' + arg + '/fixtures')
+		bbc = urllib2.urlopen('http://www.bbc.co.uk/sport/football/teams/' + arg)
 		bbcsoup = BeautifulSoup(bbc)
 		bbcsoup.prettify()
 	elif arg.isdigit():
 		if int(arg) in range(len(teamslist)):
 			# generate the next game for arg
 			arg = teamslist[int(arg)]
-			bbc = urllib2.urlopen('http://www.bbc.co.uk/sport/football/teams/' + arg + '/fixtures')
+			bbc = urllib2.urlopen('http://www.bbc.co.uk/sport/football/teams/' + arg)
 			bbcsoup = BeautifulSoup(bbc)
 			bbcsoup.prettify()
 		else:
@@ -77,17 +77,24 @@ else:
 		sys.exit("Type 'fixture list' for a list of team names and numbers")
 		
 	# pull out all the relevent information.
-	table = bbcsoup.find('div', 'fixtures-table')
-	fixture = table.find('tr', 'preview')
-	matchdate = fixture.find('td', 'match-date').contents[0].string
+	table = bbcsoup.find('div', { 'id' : 'next-match' })
+	matchtype = table.find('span', 'match-league')
+	# can include league to show the match tournament e.g. Premier League, Champions League etc...
+	league = matchtype.find('a').contents[0].string
+	league = re.sub('^\s+', '', league)
+	league = re.sub('\s+$', '', league)
+	matchdate = table.find('div', 'component-content').contents[0].string
 	matchdate = re.sub('^\s+', '', matchdate)
 	matchdate = re.sub('\s+$', '', matchdate)
-	kickoff = fixture.find('td', 'kickoff').contents[0].string
+	matchdate = matchdate.rstrip('0123456789')
+	kickoff = table.find('span', 'match-status').contents[0].string
 	kickoff = re.sub('^\s+', '', kickoff)
 	kickoff = re.sub('\s+$', '', kickoff)
-	home = fixture.find('p', 'team-home')
-	hometeam = home.find('a').contents[0].string
-	away = fixture.find('p', 'team-away')
-	awayteam = away.find('a').contents[0].string
+	
+	against = table.find('span', 'match-against')
+	team = against.find('a').contents[0].string
+	team = re.sub('^\s+', '', team)
+	team = re.sub('\s+$', '', team)
 
-	print 'Next Match // ' + matchdate + ', ' + kickoff + ' : ' + hometeam + ' v ' + awayteam
+
+	print kickoff + ' ' + matchdate + team 
