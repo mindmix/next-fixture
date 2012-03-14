@@ -22,6 +22,8 @@ import re
 import datetime
 import sys
 
+now = datetime.datetime.now()
+
 if len(sys.argv) != 2:  # the program name and the one argument (team name)
 	# stop the program and print an error message
 	print "Please provide either the name of a team e.g. 'fixture chelsea', or the number of the team e.g. 'fixture 45'"
@@ -86,7 +88,13 @@ else:
 	matchdate = table.find('div', 'component-content').contents[0].string
 	matchdate = re.sub('^\s+', '', matchdate)
 	matchdate = re.sub('\s+$', '', matchdate)
-	matchdate = matchdate.rstrip('0123456789')
+	# date comparison to see if it is today. May need to adjust to handle leading 0 issue 
+	puredate = re.sub('^[A-z]*', '', matchdate)
+	puredate = re.sub('^\s+', '', puredate)
+	if now.strftime('%d %B %Y') == puredate:
+		matchdate = 'TODAY '
+	else:
+		matchdate = matchdate.rstrip('0123456789')
 	kickoff = table.find('span', 'match-status').contents[0].string
 	kickoff = re.sub('^\s+', '', kickoff)
 	kickoff = re.sub('\s+$', '', kickoff)
@@ -100,5 +108,4 @@ else:
 	team = re.sub('^\s+', '', team)
 	team = re.sub('\s+$', '', team)
 
-
-	print kickoff + ' ' + matchdate + team 
+	print kickoff + ' ' + matchdate + team
