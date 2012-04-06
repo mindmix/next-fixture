@@ -102,7 +102,7 @@ else:
 	against = table.find('span', 'match-against')
 	team = against.find('a')
 	if team:
-		team = against.find('a').contents[0].string
+		team = against.find('span').contents[0].string
 	else:
 		team = table.find('span', 'match-against').contents[0].string
 	team = re.sub('^\s+', '', team)
