@@ -108,4 +108,4 @@ else:
 	team = re.sub('^\s+', '', team)
 	team = re.sub('\s+$', '', team)
 
-	print kickoff + ' ' + matchdate + team
+	print kickoff + ' ' + matchdate + 'vs ' + team
