@@ -102,12 +102,7 @@ else:
 	kickoff = re.sub('\s+$', '', kickoff)
 	
 	against = table.find('span', 'match-against')
-	team = against.find('a')
-	if team:
-		team = against.find('span').contents[0].string
-	else:
-		team = table.find('span', 'match-against')
-		team = team.find('span').contents[0].string
+	team = against.find(attrs={"itemprop" : "name"}).contents[0].string
 	team = re.sub('^\s+', '', team)
 	team = re.sub('\s+$', '', team)
 
