@@ -95,8 +95,10 @@ else:
 	# date comparison to see if it is today. May need to adjust to handle leading 0 issue 
 	puredate = re.sub('^[A-z]*', '', matchdate)
 	puredate = re.sub('^\s+', '', puredate)
-	if now.strftime('%d %B %Y') == puredate:
-		matchdate = 'TODAY '
+	nowdate = now.strftime('%d %B %Y')
+	nowdate = re.sub('^0', '', nowdate)
+	if nowdate == puredate:
+		matchdate = 'Today '
 	else:
 		matchdate = matchdate.rstrip('0123456789')
 	kickoff = table.find('span', 'match-status').contents[0].string
@@ -104,12 +106,8 @@ else:
 	kickoff = re.sub('\s+$', '', kickoff)
 	
 	against = table.find('span', 'match-against')
-	team = against.find('a')
-	if team:
-		team = against.find('a').contents[0].string
-	else:
-		team = table.find('span', 'match-against').contents[0].string
+	team = against.find(attrs={"itemprop" : "name"}).contents[0].string
 	team = re.sub('^\s+', '', team)
 	team = re.sub('\s+$', '', team)
 
-	print kickoff + ' ' + matchdate + team
+	print kickoff + ' ' + matchdate + 'vs ' + team
