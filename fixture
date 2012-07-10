@@ -82,7 +82,11 @@ else:
 	table = bbcsoup.find('div', { 'id' : 'next-match' })
 	matchtype = table.find('span', 'match-league')
 	# can include league to show the match tournament e.g. Premier League, Champions League etc...
-	league = matchtype.find('a').contents[0].string
+	league = matchtype.find('a')
+	if league:
+		league = matchtype.find('a').contents[0].string
+	else:
+		league = matchtype.contents[0].string
 	league = re.sub('^\s+', '', league)
 	league = re.sub('\s+$', '', league)
 	matchdate = table.find('div', 'component-content').contents[0].string
