@@ -53,7 +53,6 @@ This will print out the next fixture for Chelsea
 This will print out the next fixture for the team numbered 5 in the list
 
 	$ fixture chelsea relative
-
 	$ fixture 5 relative
 
 Adding the option 'relative' will tell you how many days until the match
