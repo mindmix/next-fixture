@@ -5,13 +5,24 @@ Premier League, Scottish Premier League, Championship, League One, League Two, C
 
 The idea and main bulk of the code for this was taken (read: stolen) from [dotcode's eat.st script](https://github.com/dotcode/eat-street). Cheers Jude :-)
 
-
 	
 How it works
 ------------
 It's a Python script that simply grabs all possible teams from the [BBC Sport Teams Page](http://www.bbc.co.uk/sport/football/teams) using urllib2, uses BeautifulSoup to scrape the relevant list of teams, and spits back their names.
 It then uses the name of the team to grab the [Fixtures Page](http://www.bbc.co.uk/sport/football/teams/chelsea/fixtures) and uses urllib2 and BeautifulSoup to scrape the page and get the next fixture information.
 
+
+How does it look
+----------------
+Like this:
+
+![the output of kerb](https://github.com/downloads/howlingmad/next-fixture/fulldate.png)
+
+Or like this (with relative option set):
+
+![the output of kerb](https://github.com/downloads/howlingmad/next-fixture/relative.png)
+	
+Simple, huh?
 
 
 Requirements
