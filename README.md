@@ -51,12 +51,18 @@ This will print out the next fixture for Chelsea
 	$ fixture 5
 	
 This will print out the next fixture for the team numbered 5 in the list
+
+	$ fixture chelsea relative
+
+	$ fixture 5 relative
+
+Adding the option 'relative' will tell you how many days until the match
 	
 I trigger the command using [GeekTool](http://projects.tynsoe.org/en/geektool/) so that I have the info displaying on my desktop.
 	
 	
 Author
 ------
-Alex Kilgour
--- alexkilgour at hotmail dot com
--- @alexjkilgour
+Alex Kilgour   
+-- [http://kil.gr](http://kil.gr)   
+-- [@howlingmad](http://twitter.com/howlingmad)
