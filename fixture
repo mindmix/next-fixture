@@ -22,6 +22,14 @@ import re
 import datetime
 import sys
 
+# return the correct suffix for a date
+def suffix(d):
+    return 'th' if 11<=d<=13 else {1:'st',2:'nd',3:'rd'}.get(d%10, 'th')
+
+# format a given date by adding the suffix
+def custom_strftime(format, t):
+    return t.strftime(format).replace('{S}', str(t.day) + suffix(t.day))
+
 now = datetime.datetime.now()
 
 if len(sys.argv) != 2:  # the program name and the one argument (team name)
@@ -92,6 +100,9 @@ else:
 	matchdate = table.find('div', 'component-content').contents[0].string
 	matchdate = re.sub('^\s+', '', matchdate)
 	matchdate = re.sub('\s+$', '', matchdate)
+	fulldate = datetime.datetime.strptime(matchdate, '%a %d %B %Y')
+	matchdate = custom_strftime('%a {S} %b', fulldate)
+
 	# date comparison to see if it is today. May need to adjust to handle leading 0 issue 
 	puredate = re.sub('^[A-z]*', '', matchdate)
 	puredate = re.sub('^\s+', '', puredate)
@@ -110,4 +121,20 @@ else:
 	team = re.sub('^\s+', '', team)
 	team = re.sub('\s+$', '', team)
 
-	print kickoff + ' ' + matchdate + 'vs ' + team
+	location = against.find('a')
+	if location:
+		location = against.find('a').contents[2].string
+		location = re.sub('[()\s]', '', location).lower()
+	else:
+		location = against.contents[2].string
+		location = re.sub('[()\s]', '', location).lower()
+	if location == 'home':
+		location = ' (h)'
+	elif location == 'away':
+		location = ' (a)'
+	else:
+		location = ''
+
+	print matchdate + ', ' + kickoff + location + ' vs ' + team
+
+	# end
