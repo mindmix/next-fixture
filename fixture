@@ -32,9 +32,10 @@ def custom_strftime(format, t):
 
 now = datetime.datetime.now()
 
-if len(sys.argv) != 2:  # the program name and the one argument (team name)
+if len(sys.argv) < 2 or len(sys.argv) > 3:  # the program name and the one argument (team name) or two (relative time)
 	# stop the program and print an error message
 	print "Please provide either the name of a team e.g. 'fixture chelsea', or the number of the team e.g. 'fixture 45'"
+	print "You can also optionally add relative to show how many days until the match e.g. 'fixture chelsea relative'"
 	sys.exit("Type 'fixture list' for a list of team names and numbers")
 
 # grab the argument
@@ -80,11 +81,9 @@ else:
 			bbcsoup = BeautifulSoup(bbc)
 			bbcsoup.prettify()
 		else:
-			print "Please provide either the name of a team e.g. 'fixture chelsea', or the number of the team e.g. 'fixture 45'"
-			sys.exit("Type 'fixture list' for a list of team names and numbers")
+			sys.exit("We don't recognise that team. Type 'fixture list' for a list of team names and numbers")
 	else:
-		print "Please provide either the name of a team e.g. 'fixture chelsea', or the number of the team e.g. 'fixture 45'"
-		sys.exit("Type 'fixture list' for a list of team names and numbers")
+		sys.exit("We don't recognise that team. Type 'fixture list' for a list of team names and numbers")
 		
 	# pull out all the relevent information.
 	table = bbcsoup.find('div', { 'id' : 'next-match' })
@@ -102,6 +101,11 @@ else:
 	matchdate = re.sub('\s+$', '', matchdate)
 	fulldate = datetime.datetime.strptime(matchdate, '%a %d %B %Y')
 	matchdate = custom_strftime('%a {S} %b', fulldate)
+
+	# find the relative time 'delta.days'
+	cdate = now.strftime('%a %d %B %Y')
+	cdate = datetime.datetime.strptime(cdate, '%a %d %B %Y')
+	delta = fulldate - cdate
 
 	# date comparison to see if it is today. May need to adjust to handle leading 0 issue 
 	puredate = re.sub('^[A-z]*', '', matchdate)
@@ -129,12 +133,18 @@ else:
 		location = against.contents[2].string
 		location = re.sub('[()\s]', '', location).lower()
 	if location == 'home':
-		location = ' (h)'
+		location = '(h)'
 	elif location == 'away':
-		location = ' (a)'
+		location = '(a)'
 	else:
 		location = ''
 
-	print matchdate + ', ' + kickoff + location + ' vs ' + team
+	# if run with true, then show traders for the rest of the week
+	if (len(sys.argv[1:]) == 2 and sys.argv[2].lower() == 'relative'):
+		print location + ' vs ' + team + ', in ' + str(delta.days) + ' days'
+	elif (len(sys.argv[1:]) == 2 and sys.argv[2].lower() != 'relative'):
+		sys.exit("your last argument should be 'relative' e.g. 'fixture chelsea relative'")
+	else:
+		print matchdate + ', ' + kickoff + ' ' + location + ' vs ' + team
 
 	# end
