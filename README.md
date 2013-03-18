@@ -67,6 +67,11 @@ This will print out the next fixture for the team numbered 5 in the list
 	$ fixture 5 relative
 
 Adding the option 'relative' will tell you how many days until the match
+
+	$ fixture chelsea both
+	$ fixture 5 both
+	
+Adding the option 'both' will show both the date and how many days until the match
 	
 I trigger the command using [GeekTool](http://projects.tynsoe.org/en/geektool/) so that I have the info displaying on my desktop.
 	
