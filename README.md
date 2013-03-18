@@ -3,7 +3,7 @@ next-fixture
 next-fixture prints out the details of the next fixture for your chosen football team, from the following leagues:
 Premier League, Scottish Premier League, Championship, League One, League Two, Conference, Scottish First Division, Scottish Second Division, Scottish Third Division
 
-The idea and main bulk of the code for this was taken (read: stolen) from [dotcode's eat.st script](https://github.com/dotcode/eat-street). Cheers Jude :-)
+The idea was taken (read: stolen) from [dotcode's eat.st script](https://github.com/dotcode/eat-street). Cheers Jude :-)
 
 	
 How it works
