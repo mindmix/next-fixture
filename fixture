@@ -135,10 +135,10 @@ else:
 	if (len(sys.argv[1:]) == 2 and sys.argv[2].lower() == 'relative'):
 		print team + ' ' + location + ' in ' + str(delta.days) + ' days'
 	elif (len(sys.argv[1:]) == 2 and sys.argv[2].lower() == 'both'):
-		print matchdate + ' (' + str(delta.days) + ' days), ' + kickoff + ' ' + location + ' vs ' + team
+		print matchdate + ' (' + str(delta.days) + ' days), ' + kickoff + ' vs ' + team + ' ' + location
 	elif (len(sys.argv[1:]) == 2 and (sys.argv[2].lower() != 'relative' and sys.argv[2].lower() != 'both')):
 		sys.exit("your last argument should be 'relative' e.g. 'fixture chelsea relative'")
 	else:
-		print matchdate + ', ' + kickoff + ' ' + location + ' vs ' + team
+		print matchdate + ', ' + kickoff + ' vs ' + team + ' ' + location
 
 	# end

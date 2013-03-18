@@ -16,11 +16,7 @@ How does it look
 ----------------
 Like this:
 
-![the output of kerb](https://github.com/downloads/howlingmad/next-fixture/fulldate.png)
-
-Or like this (with relative option set):
-
-![the output of kerb](https://github.com/downloads/howlingmad/next-fixture/relative.png)
+![the output of fixture](screenshot.png)
 	
 Simple, huh?
 
