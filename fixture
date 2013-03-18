@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 # 
-# Copyright © 2012 Alex Kilgour (alexkilgour at hotmail dot com | @alexjkilgour)
+# Copyright © 2012 Alex Kilgour (alex at kil dot gr)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -88,6 +88,7 @@ else:
 	# pull out all the relevent information.
 	table = bbcsoup.find('div', { 'id' : 'next-match' })
 	matchtype = table.find('span', 'match-league')
+	
 	# can include league to show the match tournament e.g. Premier League, Champions League etc...
 	league = matchtype.find('a')
 	if league:
@@ -139,10 +140,12 @@ else:
 	else:
 		location = ''
 
-	# if run with true, then show traders for the rest of the week
+	# check number of arguments and show correct output
 	if (len(sys.argv[1:]) == 2 and sys.argv[2].lower() == 'relative'):
-		print location + ' vs ' + team + ', in ' + str(delta.days) + ' days'
-	elif (len(sys.argv[1:]) == 2 and sys.argv[2].lower() != 'relative'):
+		print team + ' ' + location + ' in ' + str(delta.days) + ' days'
+	elif (len(sys.argv[1:]) == 2 and sys.argv[2].lower() == 'both'):
+		print matchdate + ' (' + str(delta.days) + ' days), ' + kickoff + ' ' + location + ' vs ' + team
+	elif (len(sys.argv[1:]) == 2 and (sys.argv[2].lower() != 'relative' and sys.argv[2].lower() != 'both')):
 		sys.exit("your last argument should be 'relative' e.g. 'fixture chelsea relative'")
 	else:
 		print matchdate + ', ' + kickoff + ' ' + location + ' vs ' + team
