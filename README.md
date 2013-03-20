@@ -78,4 +78,4 @@ Alex Kilgour : [http://kil.gr](http://kil.gr)
 
 License
 -------
-Kerbside is licensed under the [WTFPL license.](http://sam.zoy.org/wtfpl/)
+next-fixture is licensed under the [WTFPL license.](http://sam.zoy.org/wtfpl/)
